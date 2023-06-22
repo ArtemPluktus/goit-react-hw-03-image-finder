@@ -13,7 +13,7 @@ export class Finder extends Component {
     elements: [],
     loading: false,
     loadMore: false,
-    page: 1,
+    page: 2,
     nextElements: [],
     showModal: false,
     selectedImage: '',

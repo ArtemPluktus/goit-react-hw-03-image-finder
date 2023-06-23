@@ -13,7 +13,7 @@ export class Finder extends Component {
     elements: [],
     loading: false,
     loadMore: false,
-    page: 2,
+    page: 1,
     nextElements: [],
     showModal: false,
     selectedImage: '',
@@ -28,7 +28,7 @@ export class Finder extends Component {
   onSubmit = e => {
     e.preventDefault();
 
-    this.setState({ loading: true, page: 1 });
+    this.setState({ loading: true });
 
     const { api, key, input, page } = this.state;
 
@@ -79,7 +79,9 @@ export class Finder extends Component {
       return;
     }
     fetch(
-      `${api}?q=${input}&page=${page}&key=${key}&image_type=photo&orientation=horizontal&per_page=12`
+      `${api}?q=${input}&page=${
+        page + 1
+      }&key=${key}&image_type=photo&orientation=horizontal&per_page=12`
     )
       .then(response => response.json())
       .then(result => {

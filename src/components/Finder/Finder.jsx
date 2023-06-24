@@ -30,7 +30,7 @@ export class Finder extends Component {
 
     this.setState({ loading: true });
 
-    const { api, key, input, page } = this.state;
+    const { api, key, input } = this.state;
 
     if (input.trim().length === 0) {
       alert('Заповніть поле пошуку');
@@ -40,7 +40,7 @@ export class Finder extends Component {
     this.setState({ elements: [] });
 
     fetch(
-      `${api}?q=${input}&page=${page}&key=${key}&image_type=photo&orientation=horizontal&per_page=12`
+      `${api}?q=${input}&page=1&key=${key}&image_type=photo&orientation=horizontal&per_page=12`
     )
       .then(response => response.json())
       .then(result => {
@@ -63,6 +63,8 @@ export class Finder extends Component {
         }
       })
       .catch(console.log);
+
+    this.setState({ page: 2 });
   };
 
   onClick = () => {
@@ -79,9 +81,7 @@ export class Finder extends Component {
       return;
     }
     fetch(
-      `${api}?q=${input}&page=${
-        page + 1
-      }&key=${key}&image_type=photo&orientation=horizontal&per_page=12`
+      `${api}?q=${input}&page=${page}&key=${key}&image_type=photo&orientation=horizontal&per_page=12`
     )
       .then(response => response.json())
       .then(result => {
@@ -99,7 +99,6 @@ export class Finder extends Component {
           this.setState(prevState => ({
             elements: [...prevState.elements, ...newElements],
             loading: false,
-            page: prevState.page + 1, // збільшення значення сторінки
           }));
         }
       })
